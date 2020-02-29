@@ -1,0 +1,64 @@
+#body {
+    background-color: slategray;
+}
+
+#header {
+    background-color: #614051;
+    color: rgb(240, 235, 237);
+    text-align: left;
+    width: 1200px;
+    height: 160px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#container {
+    background-color: #614051;
+    color: black;
+    width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#footer {
+    background-color:#614051;
+    color: white;
+    width: 1200px;
+    
+}
+
+.column {
+    float: left;
+}
+
+.left,
+.right {
+    width: 25%;
+}
+
+.middle {
+    width: 50%;
+}
+
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.column {
+    float: left;
+    width: 33.33%;
+    padding: 20px;
+    height: 500px;
+}
+
+.logo-img {
+    float: left;
+    position: relative;
+    margin: 10px 15px 15px 10px;
+}
+
+.header-browsers {
+    color: black;
+}

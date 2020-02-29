@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <title>Release Train Board</title>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+      <link rel="stylesheet" type="text/css" href="main.css" />
+      <!-- <script type="text/javascript" src=“/Users/maskas01/Desktop/ValueAddStoreReleasesStatus/FirstApp/test.js” ></script>    -->
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+      <style>
+      </style>
+            <script>
+                    
+                                                function readKeydata(){
+
+                                                    var xhttp52 = new XMLHttpRequest();
+                                                    xhttp52.onreadystatechange = function () {
+                                                        if (this.readyState == 4 && this.status == 200 ) {
+                                                            var myResponse = JSON.parse(this.responseText)
+                                                            console.log(myResponse)
+                                                            document.getElementById("teamId").value = myResponse.Team_Name;
+                                                            document.getElementById("trainId").value = myResponse.Train_Name;
+                                                            document.getElementById("cutuploaddate").value = myResponse.CutUpload_Date;
+                                                            document.getElementById("regstartdate").value = myResponse.Regression_Start;
+                                                            document.getElementById("display3").innerHTML = myResponse.Status_Data;
+                                                            document.getElementById("iosmainVersion").innerHTML = myResponse.iosmain_version;
+                                                            document.getElementById("ioskidsVersion").innerHTML = myResponse.ioskids_Version;
+                                                            document.getElementById("andmainVersion").innerHTML = myResponse.andmain_Version;
+                                                            document.getElementById("andkidsVersion").innerHTML = myResponse.andkids_Version;
+                                                            document.getElementById("releaselead").innerHTML = myResponse.release_lead_name;
+                                                            document.getElementById("ioslead").innerHTML = myResponse.ios_lead_name;
+                                                            document.getElementById("andlead").innerHTML = myResponse.and_lead_name;
+                                                            document.getElementById("productlead").innerHTML = myResponse.product_lead_name;
+                                                            document.getElementById("versionInfo2").innerHTML = myResponse.iosmainlive_version;
+                                                            document.getElementById("versionInfo3").innerHTML = myResponse.ioskidslive_version;
+                                                            document.getElementById("versionInfo").innerHTML = myResponse.androidmain_live_versio;
+                                                            document.getElementById("versionInfo1").innerHTML = myResponse.androidkids_live_versio;
+                                                            document.getElementById("versionInfo4").innerHTML = myResponse.amazonmain_live_versio;
+                                                            document.getElementById("versionInfo5").innerHTML = myResponse.amazonkids_live_versio;
+                                                            document.getElementById("testlead").innerHTML = myResponse.test_lead_name;
+                                                            
+                                                        }
+                                                    if (this.readyState === 4 && this.status === 403)
+                                                   {
+                                                      alert("File Not Found");
+                                                   // } else if ( this.readyState === 4 && this.status === 200){
+                                                   //    alert("File Found");
+                                                }
+
+                                                    };  
+                                                   
+
+
+                                                    var trainnumber = {}
+                                                    trainnumber["Train_Name"] = document.getElementById("trainId").value;
+                                                    xhttp52.open("POST", "/readdatafrotrain");
+                                                    xhttp52.setRequestHeader("Content-Type", "application/json");
+                                                    xhttp52.send(JSON.stringify(trainnumber));
+                                                  
+                                                    console.log(xhttp52);
+                                                    
+                                                }
+                                    
+                 </script>
+   </head>
+   <body onload="getServerData()">
+      <!-- <script >
+         $(document).ready(function(){
+           sayHello()
+         });
+         </script>
+         -->
+      <div id="header"  >
+         <img class="logo-img" src="/iPlayer.jpg" alt="logoarea" aling="left" />
+         <title>Release TrainBoard</title>
+         <link rel="stylesheet" type="text/css" href="main.css" />
+         <h1 class="text-left" style="color: white">Release Train Board</h1>
+         <!-- <form class="text-left" id = "formid"> -->
+         <h5  style="color: white">
+            Team Name :  
+            <select  id = "teamId"  list="browsers" name="browser" style="color: black" >
+               <option value="None">None</option>
+               <option value="ADA">ADA</option>
+               <option value="Apollo">Apollo</option>
+               <option value="iPlayer WTF">iPlayer WTF</option>
+               <option value="Artimis">Artimis</option>
+               <option value="Team Glasgow">Team Glasgow</option>
+            </select>
+            Train Name :  
+            <input type="number" name="quantity" min="1" max="1000" size="4" id = "trainId"  placeholder="#No." style="color: black" oninput="this.className = ''">
+         </h5>
+         <h6 class="text-left" style="margin: 10px 15px 15px 185px" >
+            <!-- <form  > -->
+            Cut & Upload: <input id = "cutuploaddate" type="date" name="Cut" style="color: black">
+            Regression Start: <input id = "regstartdate" type="date" name="Upload" style="color: black">
+            <!-- <input style="color: black" type="reset" aling="left"> -->
+            <button size="2" style="color: black" id = "clicksave" onclick="document.getElementById('id01').style.display='block'">Save</button>
+            <button size="2" style="color: black" id = "clickgo" onclick="readKeydata();">Read</button>
+
+            <div id="id01" class="modal" align="center" z-index = "2" left= "10" top ="10" padding-top = "60px">
+                    <span onclick="document.getElementById('id01').style.display='none'"
+                  class="close" title="Close Modal">&times;</span>
+                  <div class="container" align="center"   >
+                       
+                  
+                        <label style="background-color:black" value = "root" ><b>Password</b></label>
+                        <input type="password" placeholder="Enter Password" name="psw" id="psw" required>
+                  
+                        <button type="submit" id ="savedata" style="background-color:#7c747b;" onclick="validate();" >Save Data</button>
+
+                        <script>
+
+////////////////////////////////////////////////////////////
+
+
+                                // Pass_word = {}
+                                //     Pass_word["Password"] = document.getElementById("pwd").value;
+                                //     console.log(Pass_word);
+           
+                                //     var xmlhttp60 = new XMLHttpRequest();   // new HttpRequest instance 
+                                //     xmlhttp60.open("POST", "/passwordcompair");
+                                //     xmlhttp60.setRequestHeader("Content-Type", "application/json");
+                                //     xmlhttp60.send(JSON.stringify(Pass_word));
+
+
+///////////////////////////////////////////////////////////
+                              function validate(){
+                               // var xhttp60 = new XMLHttpRequest();
+                                // xhttp60.onreadystatechange = function () {
+                                //   //console.log(this.status)
+                                //   if (this.readyState == 4 && this.status == 200) {
+                                //     alert("Saved");
+                                //   } else {
+                                //     alert("Unauthorised");
+                                //   }
+                                // };  
+                                var input = {}
+                                input["Team_Name"] = document.getElementById("teamId").value;
+                                input["Train_Name"] = document.getElementById("trainId").value;
+                                input["CutUpload_Date"] = document.getElementById("cutuploaddate").value;
+                                input["Regression_Start"] = document.getElementById("regstartdate").value;
+                                input["Status_Data"] = document.getElementById("display3").innerHTML;
+                                input["iosmain_version"] = document.getElementById("iosmainVersion").innerHTML;
+                                input["ioskids_Version"] = document.getElementById("ioskidsVersion").innerHTML;
+                                input["andmain_Version"] = document.getElementById("andmainVersion").innerHTML;
+                                input["andkids_Version"] = document.getElementById("andkidsVersion").innerHTML;
+                                input["release_lead_name"] = document.getElementById("releaselead").innerHTML;
+                                input["test_lead_name"] = document.getElementById("testlead").innerHTML;
+                                input["ios_lead_name"] = document.getElementById("ioslead").innerHTML;
+                                input["and_lead_name"] = document.getElementById("andlead").innerHTML;
+                                input["product_lead_name"] = document.getElementById("productlead").innerHTML;
+                                input["iosmainlive_version"] = document.getElementById("versionInfo2").innerHTML;
+                                input["ioskidslive_version"] = document.getElementById("versionInfo3").innerHTML;
+                                input["androidmain_live_versio"] = document.getElementById("versionInfo").innerHTML;
+                                input["androidkids_live_versio"] = document.getElementById("versionInfo1").innerHTML;
+                                input["amazonmain_live_versio"] = document.getElementById("versionInfo4").innerHTML;
+                                input["amazonkids_live_versio"] = document.getElementById("versionInfo5").innerHTML;
+                                input["Password"] = document.getElementById("psw").value;
+                                //console.log(input);
+        
+                                var xmlhttp60 = new XMLHttpRequest(); 
+                                xmlhttp60.open("POST", "/writedata-2", true);
+                                xmlhttp60.setRequestHeader("Content-Type", "application/json");
+
+                                xmlhttp60.send(JSON.stringify(input));
+                                //var xmlhttp62 = new XMLHttpRequest(); 
+                                xmlhttp60.onreadystatechange = function () {
+                                    console.log(xmlhttp60);
+                                  if ( this.readyState === 4 && this.status === 403) {
+                                    alert("Unauthorised");
+                                  }else if ( this.readyState === 4 && this.status === 200) {
+                                    alert("Data Saved");
+                                  } 
+                                }
+                              };
+                            
+                                                
+
+                                    // var trainnumber = {}
+                                    //                 trainnumber["Train_Name"] = document.getElementById("trainId").value;
+                                    //                 xhttp52.open("POST", "/readdatafrotrain");
+                                    //                 xhttp52.setRequestHeader("Content-Type", "application/json");
+                                    //                 xhttp52.send(JSON.stringify(trainnumber));
+                                
+                               
+                          
+                            </script>
+                       
+                      </div>
+
+                      <div class="container" style="background-color:#7c747b;" align="center" >
+                            <button type="button" onclick="document.getElementById('id01').style.display='none'" style="background-color:#7c747b;"class="cancelbtn">Cancel</button>
+                           
+                          </div>
+
+                         
+            <!-- </form>  -->
+         </h6>
+         <h2  id = "statusdata" style="color: white" align="center" > All apps are <span id='display3' > </span> </h2>
+      </div>
+      <div class="row" id="container">
+      <div class="column" style="background-color: #D3D3D3">
+         <!-- <form > -->
+         <h2 align="center">RC Versions</h2>
+         <div class="tab">
+            <h3><a href="https://confluence.dev.bbc.co.uk/display/mobip/Release+Notes" style="color: black">iOS</a> Main Version : </h3>
+            <h4  align="center" id = "iosmainVersion"  placeholder="Main Version" oninput="this.className = ''"></h4>
+            <h3><a href="https://confluence.dev.bbc.co.uk/display/mobip/Release+Notes" style="color: black">iOS</a> Kids Version :</h3>
+            <h4  align="center" id = "ioskidsVersion" placeholder="Kids Version" oninput="this.className = ''"></h4>
+         </div>
+         <div class="tab">
+            <h3><a href="https://confluence.dev.bbc.co.uk/display/mobip/Release+Notes" style="color: black">Android</a> Main Version : </h3>
+            <h4 align="center" id = "andmainVersion"  placeholder="Main Version" oninput="this.className = ''"></h4>
+            <h3><a href="https://confluence.dev.bbc.co.uk/display/mobip/Release+Notes" style="color: black">Android</a> Kids Version :</h3>
+            <h4 align="center" id = "andkidsVersion" placeholder="Kids Version" oninput="this.className = ''"></h4>
+         </div>
+         <h6><button onclick="myFunction()" >Submit</button><button onclick="myFunction1()">Edit</button></h6>
+         <script>
+            function myFunction() {
+              
+                var iosmainVersion = $('#iosmainVersion').val();
+                localStorage.getItem("iosmainVersion", iosmainVersion);
+                document.getElementById("iosmainVersion").contentEditable = false;
+            
+                var ioskidsVersion = $('#ioskidsVersion').val();
+                localStorage.getItem("ioskidsVersion", ioskidsVersion);
+                document.getElementById("ioskidsVersion").contentEditable = false;
+               
+               
+             
+              document.getElementById("ioskidsVersion").contentEditable = false
+              document.getElementById("andmainVersion").contentEditable = false;
+              document.getElementById("andkidsVersion").contentEditable = false;
+              
+            }
+         </script>
+         <script>
+            window.onload = function () {
+                $('#iosmainVersion').text(sessionStorage.getItem('iosmainVersion'));
+                $('#ioskidsVersion').text(sessionStorage.getItem('ioskidsVersion'));
+                $('#andmainVersion').text(sessionStorage.getItem('andmainVersion'));
+                $('#andkidsVersion').text(sessionStorage.getItem('andkidsVersion'));
+                    //////////////////// for leads
+                $('#releaselead').text(sessionStorage.getItem('releaselead'));
+                $('#testlead').text(sessionStorage.getItem('testlead'));
+                $('#ioslead').text(sessionStorage.getItem('ioslead'));
+                $('#andlead').text(sessionStorage.getItem('andlead'));
+                $('#productlead').text(sessionStorage.getItem('productlead'));
+                   //////////////////// for Live app versions 
+                $('#versionInfo2').text(sessionStorage.getItem('versionInfo2'));
+                $('#versionInfo3').text(sessionStorage.getItem('versionInfo3'));
+                $('#versionInfo').text(sessionStorage.getItem('versionInfo'));
+                $('#versionInfo1').text(sessionStorage.getItem('versionInfo1'));
+                $('#versionInfo4').text(sessionStorage.getItem('versionInfo4'));
+                $('#versionInfo5').text(sessionStorage.getItem('versionInfo5'));
+                     //////////////////// for Header data
+                
+                $('#teamId').val(sessionStorage.getItem('teamId'));
+                $('#trainId').val(sessionStorage.getItem('trainId'));
+                $('#cutuploaddate').val(sessionStorage.getItem('cutuploaddate'));
+                $('#regstartdate').val(sessionStorage.getItem('regstartdate'));
+                $('#display3').text(sessionStorage.getItem('display3'));
+                $('#display2').text(sessionStorage.getItem('display2'));
+            
+            
+            }
+            
+            window.onbeforeunload = function () {
+                sessionStorage.setItem("iosmainVersion", $('#iosmainVersion').text());
+                sessionStorage.setItem("ioskidsVersion", $('#ioskidsVersion').text());
+                sessionStorage.setItem("andmainVersion", $('#andmainVersion').text());
+                sessionStorage.setItem("andkidsVersion", $('#andkidsVersion').text());
+            
+                /////////////////////// for leads 
+            
+                sessionStorage.setItem("releaselead", $('#releaselead').text());
+                sessionStorage.setItem("testlead", $('#testlead').text());
+                sessionStorage.setItem("ioslead", $('#ioslead').text());
+                sessionStorage.setItem("andlead", $('#andlead').text());
+                sessionStorage.setItem("productlead", $('#productlead').text());
+            
+                //////////////////// for Live app versions 
+            
+                sessionStorage.setItem("versionInfo2", $('#versionInfo2').text());
+                sessionStorage.setItem("versionInfo3", $('#versionInfo3').text());
+                sessionStorage.setItem("versionInfo", $('#versionInfo').text());
+                sessionStorage.setItem("versionInfo1", $('#versionInfo1').text());
+                sessionStorage.setItem("versionInfo4", $('#versionInfo4').text());
+                sessionStorage.setItem("versionInfo5", $('#versionInfo5').text());
+            
+                  //////////////////// for Header data
+            
+                sessionStorage.setItem("teamId", $('#teamId').val());
+                sessionStorage.setItem("trainId", $('#trainId').val());
+                sessionStorage.setItem("cutuploaddate", $('#cutuploaddate').val());
+                sessionStorage.setItem("regstartdate", $('#regstartdate').val());
+                sessionStorage.setItem("display3", $('#display3').text());
+                sessionStorage.setItem("display2", $('#display2').text());
+            
+            
+            
+            
+            
+            
+            }
+            
+            
+            
+            function myFunction1() {
+            
+            
+            document.getElementById("iosmainVersion").contentEditable = true;
+            document.getElementById("ioskidsVersion").contentEditable = true;
+            document.getElementById("andmainVersion").contentEditable = true;
+            document.getElementById("andkidsVersion").contentEditable = true;
+            
+            }
+            
+            
+            
+            
+            
+            
+         </script> 
+         <h5  style="color: black">
+            Current Release Status:  
+            <select  id = "releaseStatus"  list="browsers" name="browser" style="color: black" >
+               <option value="None">None</option>
+               <option value="Live &#x1F389">Live &#x1F389</option>
+               <option value="Published to Live &#128526">Published to Live &#128526</option>
+               <option value="Not Live Yet &#128528">Not Live Yet &#128528</option>
+               <option value="Under Regression &#129488 ">Under Regression &#129488 </option>
+            </select>
+         </h5>
+         <h6>   <input id ="submit1" type="submit" value="Submit" onclick="showInput1();"></h6>
+         <script language="JavaScript">
+            function showInput1() {
+                          
+                            document.getElementById('display3').innerHTML = 
+                            document.getElementById("releaseStatus").value;
+            }
+         </script>
+         <!-- </form> -->
+      </div>
+      <div class="column" style="background-color: #D3D3D3;">
+         <!-- <form > -->
+         <h2 align="center">Release Train Lead's</h2>
+         <div class="tab">
+            <h3> Release Lead : </h3>
+            <h4 align="center" id = "releaselead"  placeholder="Release Lead" oninput="this.className = ''"></h4>
+         </div>
+         <div class="tab">
+            <h3> Test Lead : </h3>
+            <h4 align="center" id = "testlead"  placeholder="Test Lead" oninput="this.className = ''"></h4>
+         </div>
+         <div class="tab">
+            <h3> iOS Lead : </h3>
+            <h4 align="center" id = "ioslead"  placeholder="iOS Lead" oninput="this.className = ''"></h4>
+         </div>
+         <div class="tab">
+            <h3> Android Lead : </h3>
+            <h4 align="center" id = "andlead"  placeholder="Android Lead" oninput="this.className = ''"></h4>
+         </div>
+         <div class="tab">
+            <h3> Product Lead : </h3>
+            <h4 align="center" id = "productlead"  placeholder="Product Lead" oninput="this.className = ''"></h4>
+         </div>
+         <h6><button onclick="nameSubmit()" >Submit</button>
+            <button onclick="nameRemove()">Edit</button></h6>
+         <script>
+            function nameSubmit() {
+              
+              document.getElementById("releaselead").contentEditable = false;
+              document.getElementById("testlead").contentEditable = false
+              document.getElementById("ioslead").contentEditable = false;
+              document.getElementById("andlead").contentEditable = false;
+              document.getElementById("productlead").contentEditable = false;
+             
+              
+            }
+         </script>
+         <script>
+            function nameRemove() {
+              document.getElementById("releaselead").contentEditable = true;
+              document.getElementById("testlead").contentEditable = true;
+              document.getElementById("ioslead").contentEditable = true;
+              document.getElementById("andlead").contentEditable = true;
+              document.getElementById("productlead").contentEditable = true;
+            
+             
+            }
+         </script> 
+         <!-- </form> -->
+      </div>
+      <div id = "liveversions" class="column" style="background-color: #D3D3D3">
+         <h2 align="center">Live App Versions</h2>
+         <h3>iOS</h3>
+         <h4 id = "iosmainliveversion" >
+            Main - 
+            <div style="float:right" id="versionInfo2"> </div>
+            <span id = "iosmainliveversionSpan"> </span> 
+         </h4>
+         <h4 id = "ioskidsliveversion">
+            Kids - 
+            <div style="float:right"  id="versionInfo3">  </div>
+         </h4>
+         <h3>Android</h3>
+         <h4 id = "androidmainliveversio">
+            Main - 
+            <div style="float:right" id="versionInfo"></div>
+         </h4>
+         <h4 id = "androidkidsliveversio">
+            Kids - 
+            <div style="float:right"  id="versionInfo1"></div>
+         </h4>
+         <h3>Amazon</h3>
+         <h4 id = "amazonmainliveversio">
+            Main - 
+            <div style="float:right" id="versionInfo4"></div>
+         </h4>
+         <h4 id = "amazonkidsliveversio">
+            Kids - 
+            <div style="float:right" id="versionInfo5"></div>
+         </h4>
+         <h6> <button id ="button"size="1" style="color: black" onclick="showVersion();" >Refresh</button></h6>
+      </div>
+      <script language="JavaScript">
+          ///////default load on URL launch 
+        var xhttp51 = new XMLHttpRequest();
+        xhttp51.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200 ) {
+                var myResponse = JSON.parse(this.responseText)
+                console.log(myResponse)
+                document.getElementById("teamId").value = myResponse.Team_Name;
+                document.getElementById("trainId").value = myResponse.Train_Name;
+                document.getElementById("cutuploaddate").value = myResponse.CutUpload_Date;
+                document.getElementById("regstartdate").value = myResponse.Regression_Start;
+                document.getElementById("display3").innerHTML = myResponse.Status_Data;
+                document.getElementById("iosmainVersion").innerHTML = myResponse.iosmain_version;
+                document.getElementById("ioskidsVersion").innerHTML = myResponse.ioskids_Version;
+                document.getElementById("andmainVersion").innerHTML = myResponse.andmain_Version;
+                document.getElementById("andkidsVersion").innerHTML = myResponse.andkids_Version;
+                document.getElementById("releaselead").innerHTML = myResponse.release_lead_name;
+                document.getElementById("ioslead").innerHTML = myResponse.ios_lead_name;
+                document.getElementById("andlead").innerHTML = myResponse.and_lead_name;
+                document.getElementById("productlead").innerHTML = myResponse.product_lead_name;
+                document.getElementById("versionInfo2").innerHTML = myResponse.iosmainlive_version;
+                document.getElementById("versionInfo3").innerHTML = myResponse.ioskidslive_version;
+                document.getElementById("versionInfo").innerHTML = myResponse.androidmain_live_versio;
+                document.getElementById("versionInfo1").innerHTML = myResponse.androidkids_live_versio;
+                document.getElementById("versionInfo4").innerHTML = myResponse.amazonmain_live_versio;
+                document.getElementById("versionInfo5").innerHTML = myResponse.amazonkids_live_versio;
+                document.getElementById("testlead").innerHTML = myResponse.test_lead_name;
+                
+            }
+        };  
+        xhttp51.open("GET", "/readdata", true);
+        xhttp51.send(); 
+
+
+       
+
+         function showVersion() {
+         
+             var xhttp = new XMLHttpRequest();
+             xhttp.onreadystatechange = function () {
+                 if (this.readyState == 4 && this.status == 200 ) {
+                     document.getElementById("versionInfo").innerHTML = this.responseText;
+                 }
+             };
+             xhttp.open("GET", "releaseversion", true);
+             xhttp.send();
+         
+         
+             var xhttp1 = new XMLHttpRequest();
+             xhttp1.onreadystatechange = function () {
+                 if (this.readyState == 4 && this.status == 200 ) {
+                     document.getElementById("versionInfo1").innerHTML = this.responseText;
+                 }
+             };
+             xhttp1.open("GET", "releaseversion1", true);
+             xhttp1.send();
+         
+             var xhttp2 = new XMLHttpRequest();
+             xhttp2.onreadystatechange = function () {
+                 if (this.readyState == 4 && this.status == 200 ) {
+                     document.getElementById("versionInfo2").innerHTML = this.responseText;
+                 }
+             };
+             xhttp2.open("GET", "releaseversion2", true);
+             xhttp2.send();
+         
+             var xhttp3 = new XMLHttpRequest();
+             xhttp3.onreadystatechange = function () {
+                 if (this.readyState == 4 && this.status == 200 ) {
+                     document.getElementById("versionInfo3").innerHTML = this.responseText;
+                 }
+             };
+             xhttp3.open("GET", "releaseversion3", true);
+             xhttp3.send();
+         
+             var xhttp4 = new XMLHttpRequest();
+             xhttp4.onreadystatechange = function () {
+                 if (this.readyState == 4 && this.status == 200 ) {
+                     document.getElementById("versionInfo4").innerHTML = this.responseText;
+                 }
+             };
+             xhttp4.open("GET", "releaseversion4", true);
+             xhttp4.send();
+         
+             var xhttp5 = new XMLHttpRequest();
+             xhttp5.onreadystatechange = function () {
+                 if (this.readyState == 4 && this.status == 200 ) {
+                     document.getElementById("versionInfo5").innerHTML = this.responseText;
+                 }
+             };
+             xhttp5.open("GET", "releaseversion5", true);
+             xhttp5.send();
+
+
+                    
+         }
+      </script>
+
+      <footer>
+         <div id="footer" class="text-center" style="margin-bottom:0">
+            <script language="JavaScript">
+               function showInput() {
+               document.getElementById('display2').innerHTML = 
+               document.getElementById("trainId").value;
+               document.getElementById('display1').innerHTML = 
+               document.getElementById("teamId").value;
+               
+                }
+ 
+            </script>
+            <h2> &#128642; Release Train Board</h2>
+         </div>
+      </footer>
+   </body>
+</html>
